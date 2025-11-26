@@ -51,6 +51,19 @@ ON psc.ProductCategoryKey = pc.ProductCategoryKey
 
 ## Exercise 8
 
+```sql
+SELECT fis.OrderQuantity AS 'Order Quantity', d.FullDateAlternateKey AS 'Delivery Date', fis.CustomerKey AS 'Customer Id'
+FROM factinternetsales fis
+JOIN dimdate d
+ON fis.DueDateKey = d.DateKey
+```
+
+![](images/ex8.png)
+
+And another screenshot that shows values > 7.
+
+![](images/ex8_2.png)
+
 ## Exercise 9
 
 ## Exercise 10
