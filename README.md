@@ -32,6 +32,19 @@ ORDER BY Profit DESC
 
 ## Exercise 6
 
+```sql
+SELECT frs.OrderQuantity, d.FullDateAlternateKey AS SaleDate, pc.EnglishProductCategoryName AS Category
+FROM factresellersales frs
+JOIN dimdate d
+ON frs.DueDateKey = d.DateKey
+JOIN dimproduct p
+ON frs.ProductKey = p.ProductKey
+JOIN dimproductsubcategory psc
+ON p.ProductSubcategoryKey = psc.ProductSubcategoryKey
+JOIN dimproductcategory pc
+ON psc.ProductCategoryKey = pc.ProductCategoryKey
+```
+
 ## Exercise 7
 
 ## Exercise 8
