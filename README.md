@@ -45,6 +45,8 @@ JOIN dimproductcategory pc
 ON psc.ProductCategoryKey = pc.ProductCategoryKey
 ```
 
+![](images/ex6.png)
+
 ## Exercise 7
 
 ## Exercise 8
