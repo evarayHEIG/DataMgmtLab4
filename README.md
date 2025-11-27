@@ -18,12 +18,10 @@ ON dc.GeographyKey = dg.GeographyKey
 ## Exercise 4
 
 ```sql
-SELECT ds.ResellerName, SUM(frs.TotalProductCost) as Profit
+SELECT ds.ResellerName, frs.TotalProductCost
 FROM dimreseller ds 
 JOIN factresellersales frs 
 ON ds.ResellerKey = frs.ResellerKey
-GROUP BY ds.ResellerName
-ORDER BY Profit DESC 
 ```
 
 ![](images/ex4.png)
