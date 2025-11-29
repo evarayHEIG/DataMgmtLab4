@@ -1,6 +1,15 @@
 # DataMgmtLab4
 
 ## Exercise 1
+```sql
+SELECT *
+FROM dimcustomer AS c
+INNER JOIN dimgeography AS g
+    ON c.GeographyKey = g.GeographyKey
+WHERE g.FrenchCountryRegionName = 'France';
+```
+
+![](images/ex1.png)
 
 ## Exercise 2
 
@@ -40,7 +49,7 @@ ON ds.ResellerKey = frs.ResellerKey
 ```
 
 ![](images/ex4.png)
-
+4
 ## Exercise 5
 ```sql
 SELECT
