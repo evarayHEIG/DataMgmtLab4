@@ -14,6 +14,21 @@ ON dc.GeographyKey = dg.GeographyKey
 ![alt text](images/ex2.png)
 
 ## Exercise 3
+```sql
+SELECT
+    dpc.EnglishProductCategoryName,
+    SUM(fs.OrderQuantity) AS total_sales
+FROM factresellersales fs
+JOIN dimproduct dp
+    ON dp.ProductKey = fs.ProductKey
+JOIN dimproductsubcategory dpsc
+    ON dp.ProductSubcategoryKey = dpsc.ProductSubcategoryKey
+JOIN dimproductcategory dpc
+    ON dpsc.ProductCategoryKey = dpc.ProductCategoryKey
+GROUP BY dpc.EnglishProductCategoryName;
+```
+
+![](images/ex3.png)
 
 ## Exercise 4
 
@@ -29,6 +44,18 @@ ORDER BY Profit DESC
 ![](images/ex4.png)
 
 ## Exercise 5
+```sql
+SELECT
+    dt.FullDateAlternateKey AS sale_date,
+    SUM(fs.OrderQuantity) AS total_sales
+FROM factresellersales fs
+JOIN dimdate dt
+    ON fs.DueDateKey = dt.DateKey
+GROUP BY dt.FullDateAlternateKey
+ORDER BY dt.FullDateAlternateKey;
+```
+
+![](images/ex5.png)
 
 ## Exercise 6
 
@@ -49,6 +76,25 @@ ON psc.ProductCategoryKey = pc.ProductCategoryKey
 
 ## Exercise 7
 
+```sql
+SELECT
+    d.FullDateAlternateKey AS SaleDate,
+    f.CustomerKey,
+    SUM(f.SalesAmount) OVER (
+        PARTITION BY f.CustomerKey
+        ORDER BY d.FullDateAlternateKey
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS CumulativeSales
+FROM factinternetsales f
+JOIN dimdate d
+    ON f.DueDateKey = d.DateKey
+ORDER BY
+    f.CustomerKey ASC,
+    d.FullDateAlternateKey ASC;
+```
+
+![](images/ex7.png)
+
 ## Exercise 8
 
 ```sql
@@ -65,5 +111,45 @@ And another screenshot that shows values > 7.
 ![](images/ex8_2.png)
 
 ## Exercise 9
+1. Give the main advantage of performing a visualization on the Web compared to a document (printed report for example). Then describe at least two examples of this advantage.
+A Web visualization is dynamic and allows the user to manipulate the data, unlike a printed or static report.
+
+- Example 1: Users can zoom, filter, highlight data points, change time ranges, and navigate through dimensions that cannot be shown in a fixed document.
+
+- Example 2: A Web dashboard can refresh automatically using APIs or data streams. A printed document cannot reflect continuous or live changes.
+
+2. Explain what the Shannon communication model (1948) has indirectly brought to the field of data visualization
+
+The Shannon-Weaver model is one of the foundational theories of communication. It describes how information is transmitted from a sender to a receiver through a channel, with potential noise that can distort the message. 
+
+It emphasizes the need to minimize noise (misinterpretation or confusion) and ensure that the intended message is accurately conveyed to the audience. This has led to the development of best practices in data visualization, such as choosing appropriate chart types, using clear labels, and designing for accessibility, all aimed at enhancing the clarity and effectiveness of visual communication.
+
+- Noise reduction.
+The model highlights the need to eliminate unnecessary elements. In visualization, removing visual clutter (chartjunk, redundant markers) increases the “capacity” of the graphic to convey information clearly.
+
+- Efficient encoding of information.
+As Shannon focuses on optimal encoding for maximum transmission, visualization must choose perceptually efficient encodings (position - length - angle - color) to minimize information loss.
+
+- Receiver-centric design.
+The model stresses correct decoding by the receiver. In data visualization, this translates to designing clear, interpretable graphics aligned with human perception.
+
+Source: https://en.wikipedia.org/wiki/Shannon%E2%80%93Weaver_model
+
+
+3. A scale has been applied to the time series data of the frst diagram in Figure 4, resulting in the display of the second diagram. Explain what this scale is and describe what information it gives compared to the frst diagram.
+
+The second diagram results from applying a logarithmic scale to the values of the original time series.
+
+A logarithmic transformation (typically log(x) or log10(x)) is applied to the y-axis.
+Instead of representing raw values, the graph displays their logarithm.
+
+
+Information gained compared to the first diagram
+
+- On a linear scale, very large values dominate the chart and compress the smaller ones against the baseline. A logarithmic scale redistributes the space so both small and large values become interpretable. This prevents the graph from being visually distorted when data vary by factors of hundreds or thousands.
+
+- Exponential or multiplicative processes form straight lines on a log scale. This transformation exposes patterns, consistency, or deviations that remain hidden on a linear axis, where the curve rapidly increases and becomes unreadable. It allows analysts to detect structure and assess growth behaviour more accurately.
+
+Source: https://www.forbes.com/sites/naomirobbins/2012/01/19/when-should-i-use-logarithmic-scales-in-my-charts-and-graphs/
 
 ## Exercise 10
