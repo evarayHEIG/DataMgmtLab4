@@ -37,6 +37,19 @@ JOIN dimproductcategory dpc
 GROUP BY dpc.EnglishProductCategoryName;
 ```
 
+```sql
+SELECT
+    dpc.EnglishProductCategoryName,
+    fs.OrderQuantity
+FROM factresellersales fs
+JOIN dimproduct dp
+    ON dp.ProductKey = fs.ProductKey
+JOIN dimproductsubcategory dpsc
+    ON dp.ProductSubcategoryKey = dpsc.ProductSubcategoryKey
+JOIN dimproductcategory dpc
+    ON dpsc.ProductCategoryKey = dpc.ProductCategoryKey
+```
+
 ![](images/ex3.png)
 
 ## Exercise 4
@@ -60,6 +73,15 @@ JOIN dimdate dt
     ON fs.DueDateKey = dt.DateKey
 GROUP BY dt.FullDateAlternateKey
 ORDER BY dt.FullDateAlternateKey;
+```
+
+```sql
+SELECT
+    dt.FullDateAlternateKey AS sale_date,
+    fs.OrderQuantity
+FROM factresellersales fs
+JOIN dimdate dt
+    ON fs.DueDateKey = dt.DateKey
 ```
 
 ![](images/ex5.png)
@@ -180,9 +202,10 @@ ON dr.GeographyKey = g.GeographyKey
 
 ![alt text](images/ex10.png)
 
-Here is a final display with a practical layout. (Not all charts are present because we split the exercises between the two people of the lab group.)
+Here is a final display with a practical layout.
 
 ![alt text](images/ex10_final_display.png)
 
 ![alt text](images/ex10_final_display_2.png)
 
+![alt text](images/ex10_final_display_3.png)
