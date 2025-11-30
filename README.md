@@ -160,3 +160,29 @@ Information gained compared to the first diagram
 Source: https://www.forbes.com/sites/naomirobbins/2012/01/19/when-should-i-use-logarithmic-scales-in-my-charts-and-graphs/
 
 ## Exercise 10
+
+Let's create a heatmap that shows the number of sales per categories by country.
+
+```sql
+SELECT pc.EnglishProductCategoryName AS Category, g.EnglishCountryRegionName AS Country, frs.OrderQuantity
+FROM factresellersales frs
+JOIN dimproduct p
+ON frs.ProductKey = p.ProductKey
+JOIN dimproductsubcategory psc
+ON p.ProductSubcategoryKey = psc.ProductSubcategoryKey
+JOIN dimproductcategory pc
+ON psc.ProductCategoryKey = pc.ProductCategoryKey
+JOIN dimreseller dr 
+ON dr.ResellerKey = frs.ResellerKey
+JOIN dimgeography g
+ON dr.GeographyKey = g.GeographyKey
+```
+
+![alt text](images/ex10.png)
+
+Here is a final display with a practical layout. (Not all charts are present because we split the exercises between the two people of the lab group.)
+
+![alt text](images/ex10_final_display.png)
+
+![alt text](images/ex10_final_display_2.png)
+
