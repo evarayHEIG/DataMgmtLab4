@@ -1,11 +1,17 @@
 # DataMgmtLab4
 
+#### authors: Massimo Stefani, Eva Ray
+
+## Remark
+
+Technically, we could have done a group by for most of the exercises, but since we wanted to try the features of superset, we chose to instead use the "metrics" feature of the charts to aggregate the data.
+
 ## Exercise 1
 ```sql
 SELECT *
 FROM dimcustomer AS c
 INNER JOIN dimgeography AS g
-    ON c.GeographyKey = g.GeographyKey
+ON c.GeographyKey = g.GeographyKey
 WHERE g.FrenchCountryRegionName = 'France';
 ```
 
@@ -23,31 +29,16 @@ ON dc.GeographyKey = dg.GeographyKey
 ![alt text](images/ex2.png)
 
 ## Exercise 3
-```sql
-SELECT
-    dpc.EnglishProductCategoryName,
-    SUM(fs.OrderQuantity) AS total_sales
-FROM factresellersales fs
-JOIN dimproduct dp
-    ON dp.ProductKey = fs.ProductKey
-JOIN dimproductsubcategory dpsc
-    ON dp.ProductSubcategoryKey = dpsc.ProductSubcategoryKey
-JOIN dimproductcategory dpc
-    ON dpsc.ProductCategoryKey = dpc.ProductCategoryKey
-GROUP BY dpc.EnglishProductCategoryName;
-```
 
 ```sql
-SELECT
-    dpc.EnglishProductCategoryName,
-    fs.OrderQuantity
+SELECT dpc.EnglishProductCategoryName, fs.OrderQuantity
 FROM factresellersales fs
 JOIN dimproduct dp
-    ON dp.ProductKey = fs.ProductKey
+ON dp.ProductKey = fs.ProductKey
 JOIN dimproductsubcategory dpsc
-    ON dp.ProductSubcategoryKey = dpsc.ProductSubcategoryKey
+ON dp.ProductSubcategoryKey = dpsc.ProductSubcategoryKey
 JOIN dimproductcategory dpc
-    ON dpsc.ProductCategoryKey = dpc.ProductCategoryKey
+ON dpsc.ProductCategoryKey = dpc.ProductCategoryKey
 ```
 
 ![](images/ex3.png)
@@ -64,24 +55,12 @@ ON ds.ResellerKey = frs.ResellerKey
 ![](images/ex4.png)
 4
 ## Exercise 5
-```sql
-SELECT
-    dt.FullDateAlternateKey AS sale_date,
-    SUM(fs.OrderQuantity) AS total_sales
-FROM factresellersales fs
-JOIN dimdate dt
-    ON fs.DueDateKey = dt.DateKey
-GROUP BY dt.FullDateAlternateKey
-ORDER BY dt.FullDateAlternateKey;
-```
 
 ```sql
-SELECT
-    dt.FullDateAlternateKey AS sale_date,
-    fs.OrderQuantity
+SELECT dt.FullDateAlternateKey AS sale_date, fs.OrderQuantity
 FROM factresellersales fs
 JOIN dimdate dt
-    ON fs.DueDateKey = dt.DateKey
+ON fs.DueDateKey = dt.DateKey
 ```
 
 ![](images/ex5.png)
@@ -116,10 +95,8 @@ SELECT
     ) AS CumulativeSales
 FROM factinternetsales f
 JOIN dimdate d
-    ON f.DueDateKey = d.DateKey
-ORDER BY
-    f.CustomerKey ASC,
-    d.FullDateAlternateKey ASC;
+ON f.DueDateKey = d.DateKey
+ORDER BY f.CustomerKey, d.FullDateAlternateKey;
 ```
 
 ![](images/ex7.png)
